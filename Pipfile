@@ -10,6 +10,8 @@ flask = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 requests = "*"
+sklearn = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
