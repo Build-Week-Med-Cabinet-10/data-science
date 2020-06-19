@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Recommendation! </h2>
+
+    <p>Use the form below to get a recommendation which strain of cannabis you will most likely enjoy.</p>
+
+    <form action=/recommendation/create" method="POST">
+
+        <!-- TODO: Instead of hard-coding these drop-down menu options, dynamically populate them based on user records from the database -->
+        <label>Flavor:</label>
+        <select name="Flavor">
+            <option value="fruity" selected="true">fruity</option>
+            <option value="grape">grape</option>
+            <option value="woody">woody</option>
+        </select>
+        <br>
+
+    
+        <label>Effect:</label>
+        <select name="Effect">
+            <option value="creative">creative</option>
+            <option value="hungry">hungry</option> 
+            <option value="happy">happy</option>
+          </select>
+        <br>
+
+        <button>Submit</button>
+    </form>
+</body>
+</html>
