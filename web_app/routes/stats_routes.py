@@ -6,12 +6,6 @@ import sklearn
 import pandas
 
 
-
-
-
-
-
-
 stats_routes = Blueprint("stats_routes", __name__)
 
 
