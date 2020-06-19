@@ -12,6 +12,7 @@ flask-migrate = "*"
 requests = "*"
 sklearn = "*"
 pandas = "*"
+request = "*"
 
 [requires]
 python_version = "3.7"
