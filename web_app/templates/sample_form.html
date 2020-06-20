@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-{% block content %}
+
     <h2>Recommendation Time!</h2>
 
     <p>Use the form below to get our recommendation...</p>
@@ -17,22 +17,29 @@
         <label>EFFECT:</label>
         <select name="effect">
             <option value="Aroused">Aroused</option>
-            <option value="Hungry" selected="true">Hungry</option>
-            <option value="Creative">@Creative</option>
+            <option value="Creative">Creative</option>
+            <option value="Dry">Dry</option>
+            <option value="Euphoric">Euphoric</option>
+            <option value="Focused">Focused</option>
+            <option value="Giggly">Giggly</option>
+
         </select>
         <br>
 
         <!-- TODO: Instead of hard-coding these drop-down menu options, dynamically populate them based on user records from the database -->
         <label>FLAVOR:</label>
         <select name="flavor">
-            <option value="Grape">Grape</option>
-            <option value="Sweet" selected="true">Sweet</option>
-            <option value="Fruity">Fruity</option>
-          </select>
+            <option value="'Ammonia'">Ammonia</option>
+            <option value="Apple">Apple</option>
+            <option value="Apricot">Apricot</option>
+            <option value="Berry">Berry</option>
+            <option value="Blue">Blue</option>
+            <option value="Blueberry">Blueberry</option>
+            
+        </select>
         <br>
-
         <button>Submit</button>
     </form>
-{% endblock %}
+
 </body>
 </html>
