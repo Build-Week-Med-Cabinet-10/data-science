@@ -1,5 +1,7 @@
 
 from flask import Flask, Blueprint, request, jsonify, render_template
+from flask_sqlalchemy import SQLAlchemy
+from web_app.models import db, User_Recommendation
 import os
 import pickle
 import sklearn
@@ -42,13 +44,21 @@ def predict():
     print("FORM DATA:", dict(request.form))
 
     from_web = dict(request.form)
+    # # user = request.form['username']
     eff = request.form['effect']
     fla = request.form['flavor']
+    
+    ########################################
+
+    
+
+    ########################################
+    
     print('USING', eff)
     print('USING', fla)
     
     #1. Web team sends this user query in some format(probably json)
-    # example = from_web = {'effect':'Aroused', 'flavor': 'Sweet'} -> json like object 
+    #from_web = {'effect':'Aroused', 'flavor': 'Sweet'} #-> json like object 
     
     #2. Use info to get vectors from pickled dictionaries
     effect = effects[list(from_web.values())[0]]
@@ -64,16 +74,37 @@ def predict():
 
     #5. Result object will have the index location of recomendations to lookup in df
     strains = df.iloc[result[1][0]]['Strain'].to_list() 
-    row = df[df['Strain']== strains[0]]
+    row = df[df['Strain']== strains[0]].reset_index(drop=True)
     dictionary = row.to_dict()
+
+
+    
+
+    
+    #6 Log recommendation record
+    new_recommendation = User_Recommendation(
+        user_id = 'test',
+        strain = row.iloc[0][0],
+        strain_type = row.iloc[0][1],
+        rating = row.iloc[0][2],
+        effect = row.iloc[0][3],
+        flavor = row.iloc[0][4],
+        description = row.iloc[0][5])
+
+    
+
+    db.session.add(new_recommendation)
+    db.session.commit()
     
    
-    
     return jsonify(dictionary) 
-    #return render_template("results.html",
-        # effect= eff,
-        # flavor= fla,
-        # strains= strains[0])
+    # return render_template("results.html",
+    #     effect= eff,
+    #     flavor= fla,
+    #     strains= strains[0])
+
+
+
 
 
 
