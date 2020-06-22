@@ -9,13 +9,13 @@ import pandas
 
 stats_routes = Blueprint("stats_routes", __name__)
 
-@stats_routes.route('/recommendation/new')
+@stats_routes.route('/')
 
 def sample_form():
     print('Visiting Recommendation Page')
     return render_template('sample_form.html', methods=['GET'])
 
-@stats_routes.route("/recommendation/new", methods=["POST"])
+@stats_routes.route("/recommendation", methods=["POST"])
 
 def predict():
     '''
