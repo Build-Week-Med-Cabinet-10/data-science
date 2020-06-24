@@ -70,13 +70,14 @@ def predict():
 
     #5 Result object will have the index location of recomendations to lookup in df
     strains = df.iloc[result[1][0]]['Strain'].to_list() 
-    rec_one = df[df['Strain']== strains[0]].reset_index()
-    #rec_two = df[df['Strain']== strains[1]].reset_index()
-    #rec_three = df[df['Strain']== strains[2]].reset_index()
-    rec_one.columns =  ['id', 'strain', 'type','rating', 'effect', 'flavor', 'description']
-    dictionary = rec_one.to_dict()
+    recommendation_dictionaries = []
+    for i in range(2):
+        rec = df[df['Strain']== strains[i]].reset_index()
+        rec.columns =  ['id', 'strain', 'type','rating', 'effect', 'flavor', 'description']
+        dictionary = rec.to_dict()
+        recommendation_dictionaries.append(dictionary)
 
 
     
    
-    return jsonify(dictionary) 
+    return jsonify(recommendation_dictionaries) 
