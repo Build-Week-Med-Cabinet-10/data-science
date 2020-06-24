@@ -118,8 +118,3 @@ def predict():
     
    
     return jsonify(dictionary) 
-    # return render_template("results.html",
-    #     effect= eff,
-    #     flavor= fla,
-    #     strains= strains[0])
-    
