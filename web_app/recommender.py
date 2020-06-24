@@ -42,10 +42,10 @@ def predict():
         flavors = pickle.load(flavors_file)
     
     # Test Request
-    from_web = {'Effect':'Creative','Flavor':'Apple'}
+    #from_web = {'Effect':'Creative','Flavor':'Apple'}
     
     # Load web request
-    #from_web = dict(request.get_data())
+    from_web = dict(request.get_data())
     
     web_query = list(from_web.values())
     effect = effects[web_query[0]]
