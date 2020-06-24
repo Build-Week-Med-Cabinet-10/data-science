@@ -1,1 +1,1 @@
-web: gunicorn "web_app/recommender.py"
+web: gunicorn "web_app:create_app()"

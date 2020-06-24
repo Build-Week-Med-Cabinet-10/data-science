@@ -2,8 +2,7 @@
 
 import os 
 import requests
-from flask import Flask, request, jsonify, render_template
-from flask_sqlalchemy import SQLAlchemy 
+from flask import Flask, request, jsonify, Blueprint
 
 import pickle
 import sklearn
@@ -11,31 +10,10 @@ import pandas
 
 
 
-DATABASE_URI = ('sqlite:///Cannabis.db')
 
+recommend_route = Blueprint('recommend_route',__name__)
 
-
-APP = Flask(__name__)
-    
-APP.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
-APP.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
-
-DB = SQLAlchemy(APP)
-
-class User_Recommendation(DB.Model):
-    id = DB.Column(DB.Integer, primary_key = True)
-    user_id = DB.Column(DB.String(128))
-    strain = DB.Column(DB.String(128), nullable=False)
-    strain_type = DB.Column(DB.String)
-    rating = DB.Column(DB.String)
-    effect = DB.Column(DB.String(128))
-    flavor = DB.Column(DB.String(128))
-    description= DB.Column(DB.String)
-
-DB.create_all()
-
-    
-@APP.route('/', methods=['GET','POST'])
+@recommend_route.route('/', methods=['GET','POST'])
 
 
 def predict():
@@ -65,6 +43,7 @@ def predict():
     
     # Test Request
     from_web = {'Effect':'Creative','Flavor':'Apple'}
+    
     # Load web request
     #from_web = dict(request.get_data())
     
@@ -98,23 +77,6 @@ def predict():
     dictionary = rec_one.to_dict()
 
 
-    
-
-    
-    #6 Log recommendation record
-    new_recommendation = User_Recommendation(
-        user_id = 'test',
-        strain = rec_one.iloc[0][1],
-        strain_type = rec_one.iloc[0][2],
-        rating = rec_one.iloc[0][3],
-        effect = rec_one.iloc[0][4],
-        flavor = rec_one.iloc[0][5],
-        description = rec_one.iloc[0][6])
-
-    
-
-    DB.session.add(new_recommendation)
-    DB.session.commit()
     
    
     return jsonify(dictionary) 
