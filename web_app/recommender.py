@@ -10,10 +10,9 @@ import pandas
 
 
 
-
 recommend_route = Blueprint('recommend_route',__name__)
 
-@recommend_route.route('/', methods=['GET','POST'])
+@recommend_route.route('/predict', methods=['GET','POST'])
 
 
 def predict():
@@ -42,11 +41,11 @@ def predict():
         flavors = pickle.load(flavors_file)
     
     # Test Request
-    from_web = {'Effect':'Creative','Flavor':'Apple'}
+    #from_web = {'effect':'Creative','flavor':'Apple'}
     
     # Load web request
-    #from_web = dict(request.get_data())
     
+    from_web = dict(request.args) or dict(request.json)
     web_query = list(from_web.values())
     effect = effects[web_query[0]]
     flavor = flavors[web_query[1]]
@@ -68,7 +67,7 @@ def predict():
     DF_FILEPATH = 'web_app/data/cannabis.csv'
     df = pandas.read_csv(DF_FILEPATH)
 
-    #5 Result object will have the index location of recomendations to lookup in df
+    # Result object will have the index location of recomendations to lookup in df
     strains = df.iloc[result[1][0]]['Strain'].to_list() 
     recommendation_dictionaries = []
     for i in range(2):
@@ -76,8 +75,6 @@ def predict():
         rec.columns =  ['id', 'strain', 'type','rating', 'effect', 'flavor', 'description']
         dictionary = rec.to_dict()
         recommendation_dictionaries.append(dictionary)
-
-
-    
-   
-    return jsonify(recommendation_dictionaries) 
+        
+        
+    return jsonify(recommendation_dictionaries ) 
