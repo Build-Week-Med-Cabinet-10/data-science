@@ -7,15 +7,11 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-flask-sqlalchemy = "*"
-flask-migrate = "*"
 requests = "*"
 sklearn = "*"
 pandas = "*"
 request = "*"
 gunicorn = "*"
-psycopg2-binary = "*"
-python-dotenv = "*"
 
 [requires]
 python_version = "3.7"

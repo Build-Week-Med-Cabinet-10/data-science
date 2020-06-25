@@ -12,8 +12,8 @@ import pandas
 
 recommend_route = Blueprint('recommend_route',__name__)
 
-@recommend_route.route('/predict', methods=['GET','POST'])
 
+@recommend_route.route('/predict', methods=['GET','POST'])
 
 def predict():
     '''
@@ -21,8 +21,8 @@ def predict():
     calculated from a users flavor and effect. 
 
     '''
-    
-    # Load Model
+    ### Load Files
+    #Load Model
     KNN_FILEPATH = 'web_app/data/knn.pkl'
     print("LOADING THE MODEL...")
     with open(KNN_FILEPATH, "rb") as model_file:
@@ -39,22 +39,17 @@ def predict():
     print("LOADING FLAVORS...")
     with open(FLAVOR_FILEPATH, "rb") as flavors_file:
         flavors = pickle.load(flavors_file)
-    
-    # Test Request
-    #from_web = {'effect':'Creative','flavor':'Apple'}
+
     
     # Load web request
     
-    from_web = dict(request.args) or dict(request.json)
+    from_web = dict(request.args) or dict(request.json) or dict(request.data)
     web_query = list(from_web.values())
     effect = effects[web_query[0]]
     flavor = flavors[web_query[1]]
 
     
-    # Generate Recommendation
-    print("RECOMMENDING...")
-    
-
+    ### Generate Recommendation
     # Use info to get vectors from pickled dictionaries
     effect = effects[web_query[0]]
     flavor = flavors[web_query[1]]
@@ -67,7 +62,7 @@ def predict():
     DF_FILEPATH = 'web_app/data/cannabis.csv'
     df = pandas.read_csv(DF_FILEPATH)
 
-    # Result object will have the index location of recomendations to lookup in df
+    ### Get Strain names from model and locate strain information 
     strains = df.iloc[result[1][0]]['Strain'].to_list() 
     recommendation_dictionaries = []
     for i in range(2):
