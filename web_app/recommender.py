@@ -44,7 +44,7 @@ def predict():
     # Load web request
     
     #from_web = dict(request.json) or dict(request.args) or dict(request.data)
-    from_web = request.args or request.get_json()
+    from_web = request.get_json() or request.args
     e = from_web['effect']
     f = from_web['flavor']
 
