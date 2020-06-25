@@ -43,16 +43,15 @@ def predict():
     
     # Load web request
     
-    from_web = dict(request.args) or dict(request.json) or dict(request.data)
-    web_query = list(from_web.values())
-    effect = effects[web_query[0]]
-    flavor = flavors[web_query[1]]
+    #from_web = dict(request.json) or dict(request.args) or dict(request.data)
+    from_web = request.args or request.get_json()
+    e = from_web['effect']
+    f = from_web['flavor']
 
-    
     ### Generate Recommendation
     # Use info to get vectors from pickled dictionaries
-    effect = effects[web_query[0]]
-    flavor = flavors[web_query[1]]
+    effect = effects[e]
+    flavor = flavors[f]
 
     # Generate query vector by adding these vectors
     query = effect + flavor
@@ -72,4 +71,4 @@ def predict():
         recommendation_dictionaries.append(dictionary)
         
         
-    return jsonify(recommendation_dictionaries ) 
+    return jsonify(recommendation_dictionaries) 
